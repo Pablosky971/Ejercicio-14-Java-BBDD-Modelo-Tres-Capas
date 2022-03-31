@@ -35,7 +35,7 @@ public class GestorCoche {
 		
 		for(Coche ch: l) {
 			
-			if(c.getMatricula().equals(ch.getMatricula())) {
+			if(c.getMatricula().equals(ch.getMatricula()) == false) {
 				continue;
 				
 			} else {
@@ -78,7 +78,7 @@ public class GestorCoche {
 				
 				for(Coche ch: l) {
 					
-					if(c.getMatricula().equals(ch.getMatricula())) {
+					if(c.getMatricula().equals(ch.getMatricula())==false) {
 						continue;
 						
 					} else {
@@ -112,7 +112,7 @@ public class GestorCoche {
 	}
 	
 	public Coche obtenerCocheModelo(String modelo) {
-		Coche c = daoCoche.buscarCocheMarca(modelo);
+		Coche c = daoCoche.buscarCocheModelo(modelo);
 		return c;
 	}
 	

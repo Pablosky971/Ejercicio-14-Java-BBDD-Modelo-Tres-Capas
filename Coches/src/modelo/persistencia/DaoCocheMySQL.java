@@ -16,7 +16,7 @@ public class DaoCocheMySQL implements DaoCoche{
 	private Connection conexion;
 	
 	public boolean abrirConexion(){
-		String url = "jdbc:mysql://localhost:3306/coches";
+		String url = "jdbc:mysql://localhost:3306/coche";
 		String usuario = "root";
 		String password = "";
 		try {
@@ -118,6 +118,13 @@ public class DaoCocheMySQL implements DaoCoche{
 			ps.setDouble(4, c.getKilometros());
 			ps.setInt(5, c.getId());
 			
+			int numeroFilasAfectadas = ps.executeUpdate();
+			if(numeroFilasAfectadas == 0) {
+				update = false;
+				
+			} else {
+				update = true;
+			}
 			
 		} catch(SQLException e) {
 			System.out.println("Error al modificar al coche " + c);
@@ -142,7 +149,7 @@ public class DaoCocheMySQL implements DaoCoche{
 		
 		try {
 			PreparedStatement ps = conexion.prepareStatement(query);
-			
+			ps.setInt(1,id);
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
@@ -174,9 +181,10 @@ public class DaoCocheMySQL implements DaoCoche{
 		Coche c = null;
 		String query = "select ID,MATRICULA,MARCA,MODELO,KILOMETROS from coches " + "where matricula = ?";
 		
+		
 		try {
 			PreparedStatement ps = conexion.prepareStatement(query);
-			
+			ps.setString(1,matricula);
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
@@ -210,6 +218,7 @@ public class DaoCocheMySQL implements DaoCoche{
 		
 		try {
 			PreparedStatement ps = conexion.prepareStatement(query);
+			ps.setString(1,marca);
 			
 			ResultSet rs = ps.executeQuery();
 			
@@ -244,7 +253,7 @@ public class DaoCocheMySQL implements DaoCoche{
 		
 		try {
 			PreparedStatement ps = conexion.prepareStatement(query);
-			
+			ps.setString(1,modelo);
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
